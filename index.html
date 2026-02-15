@@ -41,7 +41,7 @@
             flex-shrink: 0;
         }
 
-        /* Botón de Idioma (Nuevo) */
+        /* Botón de Idioma */
         .lang-container {
             display: flex;
             justify-content: flex-end;
@@ -182,6 +182,16 @@
         .btn-outline:hover {
             border-color: #94a3b8;
             background-color: #f1f5f9;
+        }
+
+        /* Botón Descargar (Estilo sutil) */
+        .btn-download {
+            background-color: #10b981; /* Verde */
+            color: white;
+            border: none;
+        }
+        .btn-download:hover {
+            background-color: #059669;
         }
 
         .btn-github {
@@ -439,6 +449,7 @@
 
         <div style="margin-top: 1rem;">
             <button id="btn-copy" class="btn" onclick="copyCode()" style="width: 100%;">Copiar Código HTML</button>
+            <button id="btn-download" class="btn btn-outline" onclick="downloadHTML()" style="width: 100%;">Descargar .html</button>
             <button id="btn-update" class="btn btn-outline" onclick="updatePreview()" style="width: 100%;">Forzar Actualización</button>
             
             <button class="btn btn-github" onclick="openTutorial()" style="width: 100%;">
@@ -534,6 +545,7 @@
                 lblAnim: "ESTILO DE ANIMACIÓN",
                 lblColor: "Color del Botón (HEX)",
                 btnCopy: "Copiar Código HTML",
+                btnDownload: "Descargar .html",
                 btnUpdate: "Forzar Actualización",
                 btnGithub: "Tutorial GitHub",
                 footer: "Codigo creado por <a href='https://xat.com/ayuda' target='_blank'>Xat Ayuda</a> : DjFunny x Eam96<br>Todos los derechos reservados © 2026",
@@ -595,6 +607,7 @@
                 lblAnim: "ANIMATION STYLE",
                 lblColor: "Button Color (HEX)",
                 btnCopy: "Copy HTML Code",
+                btnDownload: "Download .html",
                 btnUpdate: "Force Update",
                 btnGithub: "GitHub Tutorial",
                 footer: "Code created by <a href='https://xat.com/ayuda' target='_blank'>Xat Ayuda</a> : DjFunny x Eam96<br>All rights reserved © 2026",
@@ -666,6 +679,7 @@
             document.getElementById('ui-lbl-anim').textContent = t.lblAnim;
             document.getElementById('ui-lbl-color').textContent = t.lblColor;
             document.getElementById('btn-copy').textContent = t.btnCopy;
+            document.getElementById('btn-download').textContent = t.btnDownload;
             document.getElementById('btn-update').textContent = t.btnUpdate;
             document.getElementById('btn-github-text').textContent = t.btnGithub;
             document.getElementById('ui-footer').innerHTML = t.footer;
@@ -913,6 +927,19 @@
             }
             
             document.body.removeChild(textarea);
+        }
+
+        function downloadHTML() {
+            const code = generateHTML();
+            const blob = new Blob([code], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
 
         // Listeners
